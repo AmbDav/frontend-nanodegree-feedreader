@@ -29,21 +29,7 @@ var allFeeds = [
  */
  function init() {
     // Load the first feed we've defined (index of 0).
-    /*var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
-    feed.load(function(result) {
-            if (!result.error) {
-              var container = document.getElementById("feed");
-              for (var i = 0; i < result.feed.entries.length; i++) {
-                var entry = result.feed.entries[i];
-                var div = document.createElement("div");
-                div.appendChild(document.createTextNode(entry.title));
-                container.appendChild(div);
-            }
-        }
-    });
-}
-google.setOnLoadCallback(init);*/
-loadFeed(0);
+    loadFeed(0);
 }
 /* This function performs everything necessary to load a
  * feed using the Google Feed Reader API. It will then

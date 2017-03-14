@@ -42,50 +42,58 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+/*  The section for the menu. Testing that the menu stats out hidden, 
+    shows when it is clicked and hides again when clicked another time.
+    It does this by looking for the class which contains the perameters.*/
+
     describe('The menu', function() {
 
         it('should be hidden', function() {
             expect('menu-hidden').toBeDefined();
         });
 
-       it('should open on click', function() {
+        it('should open on click', function() {
             $('a.menu-icon-link').click();
             expect($('body').hasClass('menu-hidden')).toBe(false);
-       });
+        });
 
-       it('should close on click', function() {
+        it('should close on click', function() {
             $('a.menu-icon-link').click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
-       });
+        });
 
     });
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+/*  The section for the initial entries. Testing that articles are 
+    originally loaded on the screen. It is looking for data to be 
+    within the function. */
+    
+    describe('Initial Entries', function() {
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+        it('should load an entry', function(done) {
+            expect($('.entry')[0]).toBeDefined();
+            done();
+        });
+    });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+/*  The section for the next set of articles. Testing that articles change 
+    to another set of articles. This is visually apparent on the screen. */
+    describe('New Feed Selection', function() {
+        beforeEach(function(done) {
+            loadFeed(1, function(){
+                done();
+            });
+        });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-}());
+        it('should change content', function(done) {
+            expect($('.entry')[1]).toBeDefined();
+            done();
+        })
+    });
+});
