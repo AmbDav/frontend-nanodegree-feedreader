@@ -46,3 +46,13 @@ Review the Feed Reader Testing [Project Rubric](https://review.udacity.com/#!/pr
 19. Implement error handling for undefined variables and out-of-bound array access.
 20. When complete - all of your tests should pass. 
 21. Write a README file detailing all steps required to successfully run the application. If you have added additional tests (for Udacious Test Coverage),  provide documentation for what these future features are and what the tests are checking for.
+
+# My added tests
+
+## Starting the page
+
+Simply open index.html to see the app and test reults.
+
+## Tests that have been implemented
+
+Tests check on the various functions of the app. It tests to make sure that the feeds have names and urls available to them and that content is present. It tests the sliding menu bar to be sure that it populates when clicked on and is hidden when clicked again. And finally it tests the content of the app by being sure that feeds populate and that they change when necessary.
