@@ -9,17 +9,17 @@
 // The names and URLs to all of the feeds we'd like available.
 var allFeeds = [
 {
-    name: 'Udacity Blog',
-    url: 'http://blog.udacity.com/feed'
+  name: 'Udacity Blog',
+  url: 'http://blog.udacity.com/feed'
 }, {
-    name: 'CSS Tricks',
-    url: 'http://feeds.feedburner.com/CssTricks'
+  name: 'CSS Tricks',
+  url: 'http://feeds.feedburner.com/CssTricks'
 }, {
-    name: 'HTML5 Rocks',
-    url: 'http://feeds.feedburner.com/html5rocks'
+  name: 'HTML5 Rocks',
+  url: 'http://feeds.feedburner.com/html5rocks'
 }, {
-    name: 'Linear Digressions',
-    url: 'http://feeds.feedburner.com/udacity-linear-digressions'
+  name: 'Linear Digressions',
+  url: 'http://feeds.feedburner.com/udacity-linear-digressions'
 }
 ];
 
@@ -30,7 +30,7 @@ var allFeeds = [
  function init() {
     // Load the first feed we've defined (index of 0).
     loadFeed(0);
-}
+  }
 /* This function performs everything necessary to load a
  * feed using the Google Feed Reader API. It will then
  * perform all of the DOM operations required to display
@@ -40,21 +40,21 @@ var allFeeds = [
  * which will be called after everything has run successfully.
  */
  function loadFeed(id, cb) {
-   var feedUrl = allFeeds[id].url,
-   feedName = allFeeds[id].name;
+  var feedUrl = allFeeds[id].url,
+  feedName = allFeeds[id].name;
 
-   $.ajax({
-     type: "POST",
-     url: 'https://rsstojson.udacity.com/parseFeed',
-     data: JSON.stringify({url: feedUrl}),
-     contentType:"application/json",
-     success: function (result, status){
+  $.ajax({
+   type: "POST",
+   url: 'https://rsstojson.udacity.com/parseFeed',
+   data: JSON.stringify({url: feedUrl}),
+   contentType:"application/json",
+   success: function (result, status){
 
-       var container = $('.feed'),
-       title = $('.header-title'),
-       entries = result.feed.entries,
-       entriesLen = entries.length,
-       entryTemplate = Handlebars.compile($('.tpl-entry').html());
+     var container = $('.feed'),
+     title = $('.header-title'),
+     entries = result.feed.entries,
+     entriesLen = entries.length,
+     entryTemplate = Handlebars.compile($('.tpl-entry').html());
 
                  title.html(feedName);   // Set the header text
                  container.empty();      // Empty out all previous entries
@@ -66,20 +66,20 @@ var allFeeds = [
                   */
                   entries.forEach(function(entry) {
                    container.append(entryTemplate(entry));
-               });
+                 });
 
                   if (cb) {
                    cb();
-               }
-           },
-           error: function (result, status, err){
+                 }
+               },
+               error: function (result, status, err){
                  //run only the callback without attempting to parse result due to error
                  if (cb) {
                    cb();
-               }
-           },
-           dataType: "json"
-       });
+                 }
+               },
+               dataType: "json"
+             });
 }
 
 /* Google API: Loads the Feed Reader API and defines what function
@@ -93,11 +93,11 @@ var allFeeds = [
  * until the DOM is ready.
  */
  $(function() {
-    var container = $('.feed'),
-    feedList = $('.feed-list'),
-    feedItemTemplate = Handlebars.compile($('.tpl-feed-list-item').html()),
-    feedId = 0,
-    menuIcon = $('.menu-icon-link');
+  var container = $('.feed'),
+  feedList = $('.feed-list'),
+  feedItemTemplate = Handlebars.compile($('.tpl-feed-list-item').html()),
+  feedId = 0,
+  menuIcon = $('.menu-icon-link');
 
     /* Loop through all of our feeds, assigning an id property to
      * each of the feeds based upon its index within the array.
@@ -106,10 +106,10 @@ var allFeeds = [
      * available feeds within the menu.
      */
      allFeeds.forEach(function(feed) {
-        feed.id = feedId;
-        feedList.append(feedItemTemplate(feed));
+      feed.id = feedId;
+      feedList.append(feedItemTemplate(feed));
 
-        feedId++;
+      feedId++;
     });
 
     /* When a link in our feedList is clicked on, we want to hide
@@ -117,17 +117,17 @@ var allFeeds = [
      * (following the link) from occurring.
      */
      feedList.on('click', 'a', function() {
-        var item = $(this);
+      var item = $(this);
 
-        $('body').addClass('menu-hidden');
-        loadFeed(item.data('id'));
-        return false;
+      $('body').addClass('menu-hidden');
+      loadFeed(item.data('id'));
+      return false;
     });
 
     /* When the menu icon is clicked on, we need to toggle a class
      * on the body to perform the hiding/showing of our menu.
      */
      menuIcon.on('click', function() {
-        $('body').toggleClass('menu-hidden');
+      $('body').toggleClass('menu-hidden');
     });
- }());
+   }());

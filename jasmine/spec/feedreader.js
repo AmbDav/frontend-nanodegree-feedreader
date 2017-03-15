@@ -42,14 +42,14 @@ $(function() {
     });
 
 
-/*  The section for the menu. Testing that the menu stats out hidden, 
-    shows when it is clicked and hides again when clicked another time.
-    It does this by looking for the class which contains the perameters.*/
+    /*  The section for the menu. Testing that the menu stats out hidden, 
+        shows when it is clicked and hides again when clicked another time.
+        It does this by looking for the class which contains the perameters.*/
 
     describe('The menu', function() {
 
         it('should be hidden', function() {
-            expect('menu-hidden').toBeDefined();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
         it('should open on click', function() {
@@ -64,9 +64,9 @@ $(function() {
 
     });
 
-/*  The section for the initial entries. Testing that articles are 
-    originally loaded on the screen. It is looking for data to be 
-    within the function. */
+    /*  The section for the initial entries. Testing that articles are 
+        originally loaded on the screen. It is looking for data to be 
+        within the function. */
     
     describe('Initial Entries', function() {
 
@@ -82,18 +82,29 @@ $(function() {
         });
     });
 
-/*  The section for the next set of articles. Testing that articles change 
-    to another set of articles. This is visually apparent on the screen. */
+    /*  The section for the next set of articles. Testing that articles change 
+        to another set of articles. This is visually apparent on the screen. */
+
     describe('New Feed Selection', function() {
-        beforeEach(function(done) {
+        var entriesAtCall1, entriesAtCall2;
+
+        beforeAll(function(done) {
+            expect($('.entry')).not.toBe();
             loadFeed(1, function(){
-                done();
+                entriesAtCall1 = $('.entry');
+                loadFeed(0, function() {
+                    entriesAtCall2 = $('.entry');
+                    done();
+                })
             });
         });
 
         it('should change content', function(done) {
-            expect($('.entry')[1]).toBeDefined();
+            expect(entriesAtCall1).toBeDefined();
+            expect(entriesAtCall2).toBeDefined();
+            expect(entriesAtCall2[0].firstChild.nextSibling.innerHTML).not
+                .toEqual(entriesAtCall1[0].firstChild.nextSibling.innerHTML);
             done();
-        })
+        });
     });
 });
