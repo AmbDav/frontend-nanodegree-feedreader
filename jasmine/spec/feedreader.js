@@ -29,14 +29,14 @@ $(function() {
         it('should have a URL', function() {
             allFeeds.forEach(function(feed){
                 expect(feed.url).toBeDefined();
-                expect(feed.url).not.toBe();
+                expect(feed.url).not.toBe(' ');
             });
         });
         
         it('should have a name', function() {
             allFeeds.forEach(function(feed){
                 expect(feed.name).toBeDefined();
-                expect(feed.name).not.toBe();
+                expect(feed.name).not.toBe(' ');
             });
         });
     });
@@ -77,7 +77,7 @@ $(function() {
         });
 
         it('should load an entry', function(done) {
-            expect($('.entry')[0]).toBeDefined();
+            expect($('.feed .entry')[0]).toBeDefined();
             done();
         });
     });
@@ -89,21 +89,19 @@ $(function() {
         var entriesAtCall1, entriesAtCall2;
 
         beforeAll(function(done) {
-            expect($('.entry')).not.toBe();
             loadFeed(1, function(){
-                entriesAtCall1 = $('.entry');
+                entriesAtCall1 = $('.feed .entry');
                 loadFeed(0, function() {
-                    entriesAtCall2 = $('.entry');
+                    entriesAtCall2 = $('.feed .entry');
                     done();
                 })
             });
         });
 
         it('should change content', function(done) {
-            expect(entriesAtCall1).toBeDefined();
-            expect(entriesAtCall2).toBeDefined();
-            expect(entriesAtCall2[0].firstChild.nextSibling.innerHTML).not
-                .toEqual(entriesAtCall1[0].firstChild.nextSibling.innerHTML);
+            expect(entriesAtCall1.length).toBeGreaterThan(0);
+            expect(entriesAtCall2.length).toBeGreaterThan(9);
+            expect(entriesAtCall1.html()).not.toEqual(entriesAtCall2.html());
             done();
         });
     });
